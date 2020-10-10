@@ -51,7 +51,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-               Profiles [<%= current_user.username %>]
+              <%= "(Admin)" if current_user.admin? %> Profiles [<%= current_user.username %>]
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             
