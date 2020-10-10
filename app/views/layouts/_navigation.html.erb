@@ -31,7 +31,9 @@
               Articles
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% if logged_in? %>
               <%= link_to "Create new articles", new_article_path, class: "dropdown-item" %>
+              <% end %>
               <%= link_to "View articles", articles_path, class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
@@ -39,20 +41,41 @@
           </li>
            <% if logged_in? %>
            <li class="nav-item">
-          <%= link_to current_user.username, user_path(current_user), class: "nav-link" %>
+            <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle text-info"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+               Profiles [<%= current_user.username %>]
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+              <%= link_to "View your profile", user_path(current_user), class: "dropdown-item" %>
+            
+              <%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+         
           </li>
           <li class="nav-item">
-          <%= link_to "Log out", logout_path, method: :delete, class: "nav-link" %>
+          <%= link_to "Log out", logout_path, method: :delete, class: "nav-link text-danger" %>
             
           </li>
           <% else %>
         
-           <%= link_to "Log in", login_path, class: "nav-link" %>
+           <%= link_to "Log in", login_path, class: "nav-link text-info" %>
            
         
           </li>
             <li class="nav-item">
-          <%= link_to "Sign up", signup_path, class: "nav-link" %>
+          <%= link_to "Sign up", signup_path, class: "nav-link text-success" %>
           </li>
           <% end %>
         </ul>
