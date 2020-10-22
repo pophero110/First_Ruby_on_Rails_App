@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_articles, only: [:update, :edit, :show, :destroy]
   before_action :require_user, except: [:index, :show]
   before_action :require_same_user, only: [:update, :edit, :destroy]
