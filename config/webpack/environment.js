@@ -12,4 +12,5 @@ environment.plugins.append(
     Popper: ["popper.js", "default"],
   })
 );
+environment.loaders.delete("nodeModules");
 module.exports = environment;
