@@ -1,8 +1,13 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">Category</li>
- 
-</ul>
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">Quantity</li>
-
+<%= form_with(url: products_path, method: "get") do %>
+  <% Category.all.each do |category| %>
+  <div class="form-check pl-4" style="font-size:1em">
+    <%= check_box_tag(category.name, 1, false, class: "form-check-input") %>
+      <%= label_tag(category.name, category.name, class: "form-check-label") %>
+  </div>
+  <% end %>
+<li class="list-group-item">Quantity</li>
+ <%= submit_tag "Filter", class: "btn btn-info mt-4" %>
+<% end %>
 </ul>

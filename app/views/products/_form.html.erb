@@ -38,7 +38,6 @@
     <%= form.date_field :expiration_date, class: "form-control shadow rounded" %>
     </div>
   </div>
-  <% if false %>
 <div class="form-group row">
     <%= form.label :quantity_of_box, class: "col-2 col-form-label text-light" %>
     <div class="col-10">
@@ -51,15 +50,15 @@
     <%= form.number_field :quantity_per_box, class: "form-control shadow rounded" %>
     </div>
   </div>
-  <% end %>
+
   
 
 
   <div class="form-group row">
     <%= form.label :category, class: "col-2 col-form-label text-light" %>
     <div class="col-10">
-    <%= form.collection_select(:category_ids, Category.all, :id, :name,
-                               { prompt: "Make your selections from the list below (can be empty)" }, { multiple: true, size: 5, class: "custom-select shadow rounded" }) %>
+    <%= form.collection_select(:category_id, Category.all, :id, :name,
+                               { prompt: "Make your selections from the list below (can be empty)" }, { size: 5, class: "custom-select shadow rounded" }) %>
     </div>
   </div>
  

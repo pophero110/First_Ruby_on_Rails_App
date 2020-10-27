@@ -1,5 +1,31 @@
-<h2 class="text-center mt-4"><%= @product.name %></h2>
-<h3 class="text-center mt-4"><%= @product.foreign_name %></h3>
 
+<div class="container">
+
+<div class="row justify-content-md-center">
+<div class="col-8 mt-4">
+<div class="card text-center shadow mb-5 bg-white rounded">
+  <div class="card-header font-italic">
+ <%= @product.name %>
+   </div>
+
+  <div class="card-body text-center">
+    <div class="card-text text-center mb-4"><%= @product.foreign_name %></div>
+    <div class="card-text text-center mb-4">Number of boxes: <%= @product.quantity_of_box %></div>
+    <div class="card-text text-center mb-4">Number per box: <%= @product.quantity_per_box %></div>
+    <% # <% if logged_in? && (@product.user === current_user || current_user.admin?) %> 
+    <%= link_to "Edit", edit_product_path(@product), class: "btn btn-outline-warning" %>
+    <%= link_to "Delete", product_path(@product), class: "btn btn-outline-danger", method: :delete %>
+    <% # <% end %> 
+  </div>
+  <div class="card-footer text-center text-muted mt-4">
+    <small>Created ago <%= time_ago_in_words(@product.created_at) %>, 
+    edited ago <%= time_ago_in_words(@product.updated_at) %></small>
+  </div>
+</div>
+</div>
+</div>
+
+
+</div>
 
 

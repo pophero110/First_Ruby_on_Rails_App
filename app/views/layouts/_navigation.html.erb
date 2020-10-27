@@ -73,8 +73,10 @@
               Products
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-       
-              <%= link_to "Create new product", new_product_path, class: "dropdown-item" %>
+        <% if logged_in? %>
+             <%= link_to "Create new product", new_product_path, class: "dropdown-item" %>
+              <% end %>
+             
        
               <%= link_to "View products", products_path, class: "dropdown-item" %>
           </li>
