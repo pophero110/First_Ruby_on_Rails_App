@@ -1,0 +1,39 @@
+<h1 class="text-center mt-4">Product Listing</h1>
+
+<div class="row p-4">
+<div class="col-1">
+
+<%= render "filter" %>
+</div>
+
+<div class="col-11">
+<table class="table table-striped table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Foreign Name</th>
+      <th scope="col">Barcode</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Expiration Date</th>
+      <th scope="col">Created Date</th>
+      <th scope="col">Updated Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @products.each do |product| %>
+    <tr>
+      <td class="text-capitalize"><%= link_to product.name, product_path(product) %></td>
+      <td><%= product.foreign_name %></td>
+      <td><%= product.barcode %></td>
+      <td><%= product.quantity_in_total %></td>
+      <td><%= product.expiration_date %></td>
+      <td><%= time_ago_in_words(product.created_at) %></td>
+      <td><%= time_ago_in_words(product.updated_at) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+

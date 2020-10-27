@@ -1,0 +1,76 @@
+<div class="container">
+
+<div class="row justify-content-center">
+<div class="col-10">
+<%= render "shared/errors", obj: @product %>
+<%= form_with(model: @product, class: "shadow p-3 mb-3 bg-info rounded", local: true) do |form| %>
+<div class="form-group row">
+  <%= form.label :name, class: "col-2 col-form-label text-light" %>
+  <div class="col-10">
+   <%= form.text_field :name, class: "form-control shadow rounded" %>
+  </div>
+</div>
+<div class="form-group row">
+  <%= form.label :foreign_name, class: "col-2 col-form-label text-light" %>
+  <div class="col-10">
+   <%= form.text_field :foreign_name, class: "form-control shadow rounded" %>
+  </div>
+</div>
+  
+    <div class="form-group row input-field">
+        <%= form.label :barcode, class: "col-2 col-form-label text-light" %>
+        <div class="col-8 pr-0">
+            <%= form.text_field :barcode, class: "barcode form-control shadow rounded ", id: "isbn_input" %>
+        </div>
+        <div class="col-2 mt-1">
+        <button type="button" class="scan button ">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upc-scan" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+  <path d="M3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+</svg>
+        </button>
+        </div>
+    </div>
+
+  <div class="form-group row">
+    <%= form.label :expiration_date, class: "col-2 col-form-label text-light" %>
+    <div class="col-10">
+    <%= form.date_field :expiration_date, class: "form-control shadow rounded" %>
+    </div>
+  </div>
+  <% if false %>
+<div class="form-group row">
+    <%= form.label :quantity_of_box, class: "col-2 col-form-label text-light" %>
+    <div class="col-10">
+    <%= form.number_field :quantity_of_box, class: "form-control shadow rounded" %>
+    </div>
+  </div>
+   <div class="form-group row">
+    <%= form.label :quantity_per_box, class: "col-2 col-form-label text-light" %>
+    <div class="col-10">
+    <%= form.number_field :quantity_per_box, class: "form-control shadow rounded" %>
+    </div>
+  </div>
+  <% end %>
+  
+
+
+  <div class="form-group row">
+    <%= form.label :category, class: "col-2 col-form-label text-light" %>
+    <div class="col-10">
+    <%= form.collection_select(:category_ids, Category.all, :id, :name,
+                               { prompt: "Make your selections from the list below (can be empty)" }, { multiple: true, size: 5, class: "custom-select shadow rounded" }) %>
+    </div>
+  </div>
+ 
+ 
+<div class="form-group row justify-content-center">
+    <%= form.submit class: "btn btn-outline-light btn-lg" %>
+</div>
+<% end %>
+</div>
+
+<%= link_to "[ Cancel and return to product listing ]", products_path, class: "text-info" %>
+</div>
+
+</div>
