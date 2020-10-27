@@ -4,7 +4,7 @@ $(document).on("turbolinks:load", function () {
     document.querySelector(".button.scan") ||
     document.querySelector(".search_by_scan");
   let scanner = document.querySelector(".scanner");
-  let closedButton = document.querySelector(".closed-button");
+  let closedButton = document.querySelector(".closed");
 
   function scanInit() {
     scanner.classList.toggle("d-none");
@@ -62,12 +62,14 @@ $(document).on("turbolinks:load", function () {
     Quagga.stop();
     Quagga.offProcessed();
     closedButton.removeEventListener("click", cancelScan);
+    closedButton.style.zIndex = "-1";
     attachListener(button);
   }
   function attachListener(seletor) {
     seletor.addEventListener("click", function onClick(e) {
       e.preventDefault();
       closedButton.addEventListener("click", cancelScan);
+      closedButton.style.zIndex = "0";
       seletor.removeEventListener("click", onClick);
       scanInit();
       Quagga.onDetected(onDetect);
