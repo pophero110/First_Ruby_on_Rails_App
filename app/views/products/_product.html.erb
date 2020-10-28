@@ -35,7 +35,9 @@
 
        <td><%= product.expiration_date.strftime("%m/%d/%Y") %>
       <td><%= product.created_at.strftime("%m/%d/%Y") %></td>
-
+<td>
+<%= link_to "Edit", edit_product_path(product), class: "btn btn-outline-info text-center " %>
+    <%= link_to "Delete", product_path(product), class: "btn btn-outline-danger text-center ", method: :delete, data: { confirm: "Are you sure?" } %></td></td>
     </tr>
     <% end %>
   </tbody>

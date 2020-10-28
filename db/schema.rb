@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_160901) do
+ActiveRecord::Schema.define(version: 2020_10_28_022827) do
 
   create_table "article_categories", force: :cascade do |t|
     t.integer "article_id"
@@ -51,6 +51,11 @@ ActiveRecord::Schema.define(version: 2020_10_27_160901) do
     t.integer "quantity_per_box"
     t.integer "quantity_in_total"
     t.integer "category_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.date "date"
+    t.string "data"
   end
 
   create_table "users", force: :cascade do |t|

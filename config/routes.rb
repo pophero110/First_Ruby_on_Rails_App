@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # resources :articles, only: [:show, :index, :new, :create,:edit, :update,:destroy]
   resources :articles
   resources :products
+  resources :sales
   get "signup", to: "users#new"
   resources :users, except: [:new]
   get "login", to: "sessions#new"

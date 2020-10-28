@@ -1,4 +1,4 @@
-<h1 class="text-center mt-4">Product Listing</h1>
+
 
 <% # <div class="row p-4"> %>
 <% # <div class="col-1"> %>
@@ -7,6 +7,11 @@
 <% # </div> %>
 
 <div class="pl-5 pr-5">
+<div class="mt-4 mb-2 d-flex justify-content-between align-items-center">
+<h1 >Product Listing</h1>
+<%= link_to "back to homepage", root_path, class: "btn btn-outline-secondary" %>
+</div>
+
 <table class="table table-striped table-bordered table-light">
   <thead>
     <tr>
@@ -36,7 +41,8 @@
 
        <td><%= product.expiration_date.strftime("%m/%d/%Y") %>
       <td><%= product.created_at.strftime("%m/%d/%Y") %></td>
-
+  <td><%= link_to "Edit", edit_product_path(product), class: "btn btn-outline-info text-center " %>
+    <%= link_to "Delete", product_path(product), class: "btn btn-outline-danger text-center ", method: :delete, data: { confirm: "Are you sure?" } %></td></td>
     </tr>
     <% end %>
   </tbody>
