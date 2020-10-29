@@ -6,13 +6,14 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.filter(params.keys)
+    @products = Product.filter(params.keys).order(:name)
   end
 
   def create
     @product = Product.new(product_params)
-    @product.quantity_in_total = @product.quantity_of_box * @product.quantity_per_box
     if @product.save
+      @product.quantity_in_total = @product.quantity_of_box * @product.quantity_per_box
+      @product.save
       flash[:notice] = "product was created successfully."
       redirect_to @product
     else

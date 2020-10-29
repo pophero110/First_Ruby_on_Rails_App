@@ -2,7 +2,7 @@ require "csv"
 
 class SalesController < ApplicationController
   def index
-    @sales = Sale.all
+    @sales = Sale.all.order(:date)
   end
 
   def new
@@ -42,6 +42,22 @@ class SalesController < ApplicationController
       flash[:alert] = "Something went wrong"
       redirect_to
     end
+  end
+
+  def destroy
+    @sale = Sale.find(params[:id])
+    if @sale.destroy
+      @sale.data.each do |product|
+        finded = Product.find_by(name: product[2])
+        if finded
+          finded.update(quantity_in_total: finded.quantity_in_total + product[4].to_i)
+        end
+      end
+    else
+      flash[:alert] = "Soemthing went wrong"
+      redirect_to(:back)
+    end
+    redirect_to sales_path
   end
 
   private

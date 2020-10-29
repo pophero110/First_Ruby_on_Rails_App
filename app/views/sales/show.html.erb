@@ -6,11 +6,15 @@
 <div class="d-flex ">
 <% if !@sale.is_confirm %>
 <%= form_with(url: sale_path(@sale), method: "Patch") do %>
-<%= submit_tag("Confirm", class: "btn btn-danger mr-2", data: { confirm: "Are you sure?" }) %>
+<%= submit_tag("Confirm", class: "btn btn-warning mr-2", data: { confirm: "Are you sure?" }) %>
   <% end %>
   <% else %>
   <button class="btn btn-secondary mr-2" disabled>Confirmed</button>
   <% end %>
+ <%= form_with(url: sale_path(@sale), method: "Delete") do %>
+<%= submit_tag("Delete", class: "btn btn-danger mr-2", data: { confirm: "Are you sure?" }) %>
+<% end %>
+
 <%= link_to "back to sales", sales_path, class: "btn btn-outline-secondary" %>
 </div>
 
