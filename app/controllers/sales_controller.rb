@@ -2,26 +2,7 @@ require "csv"
 
 class SalesController < ApplicationController
   def index
-    @sales = [[]]
-    Sale.all.each do |sale|
-      # puts sale.data
-      path = Rails.root.join("public", "sales", sale.data)
-      # puts path
-      readed = File.read(path)
-
-      file = CSV.parse(readed).drop(1)
-
-      @sales.first << sale.date
-      @sales << []
-
-      file.each_with_index do |product, index|
-        @sales.last << [file[index][2], file[index][3], file[index][4]]
-      end
-    end
-    puts @sales
-    # Sale.all.each do |sale|
-    #
-    # end
+    @sales = Sale.all
   end
 
   def new
@@ -29,25 +10,37 @@ class SalesController < ApplicationController
   end
 
   def create
-    readed = sales_params[:data].read
-    uploaded_file = sales_params[:data]
-    File.open(Rails.root.join("public", "sales", uploaded_file.original_filename), "wb") do |file|
-      file.write(readed)
-    end
-    parsedProducts = CSV.parse(readed)
-    puts parsedProducts.drop(1)
-    parsedProducts.drop(1).each do |product|
-      finded = Product.find_by(name: product[2])
-      puts finded.quantity_in_total
-      puts product.last
-    end
-
-    @sale = Sale.new(date: sales_params[:date], data: sales_params[:data].original_filename)
+    #Parse csv file to array
+    parsed = CSV.parse(sales_params[:data].read).drop(1)
+    date = sales_params[:date]
+    @sale = Sale.new(date: date, data: parsed)
     if @sale.save
-      flash[:notice] = "Sale was created successfully."
-      redirect_to sales_path
+      flash[:notice] = "Sale data was uploaded successfully"
+      redirect_to @sale
     else
       render "new"
+    end
+  end
+
+  def show
+    @sale = Sale.find(params[:id])
+  end
+
+  def update
+    @sale = Sale.find(params[:id])
+    if @sale.update(is_confirm: true)
+      #update product quantity based on sale data
+      @sale.data.each do |product|
+        finded = Product.find_by(name: product[2])
+        if finded
+          finded.update(quantity_in_total: finded.quantity_in_total - product[4].to_i)
+        end
+      end
+      flash[:notice] = "Data confirmed. Quantity had been updated"
+      redirect_to @sale
+    else
+      flash[:alert] = "Something went wrong"
+      redirect_to
     end
   end
 

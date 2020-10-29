@@ -2,7 +2,7 @@
 
 <div class="container text-center">
 <%= form_with(model: @sale, local: true) do |f| %>
-<%= f.date_field :date %>
+<%= f.date_field :date, :value => Time.now.strftime("%Y-%m-%d") %>
   <%= f.file_field :data %>
 
   <%= submit_tag "upload" %>
