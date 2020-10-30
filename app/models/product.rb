@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates_uniqueness_of :name
   validates_uniqueness_of :foreign_name
   validates_uniqueness_of :barcode
+  validates :barcode, length: { minimum: 12, maximum: 13 }
   def self.filter(params)
     if params.length > 3
       puts "filtered"
@@ -16,6 +17,14 @@ class Product < ApplicationRecord
       puts "aall"
       products = Product.all
       return products
+    end
+  end
+
+  def barcode=(value)
+    if value.length == 12
+      write_attribute(:barcode, value.insert(0, "0"))
+    else
+      write_attribute(:barcode, value)
     end
   end
 end

@@ -25,8 +25,7 @@ class ProductsController < ApplicationController
     if params[:id].length >= 6
       @product = Product.find_by(barcode: params[:id])
       if @product == nil
-        flash[:alert] = "Not found"
-        redirect_to root_path
+        redirect_to root_path + "?error=true" + "&" + "barcode=" + params[:id]
       end
     else
       @product = Product.find(params[:id])
