@@ -4,7 +4,7 @@
 <div class="pl-5 pr-5">
 <div class="mt-4 mb-2 d-flex justify-content-between
  align-items-center">
-<h1>Products</h1>
+<h1>Products: <%= @product_list.products.length %></h1>
 <div class="d-flex ">
 <% if !@product_list.is_confirm %>
 <%= form_with(url: product_list_path(@product_list), method: "Patch") do %>

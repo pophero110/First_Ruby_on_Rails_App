@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.filter(params.keys).order(:name)
+    @products = Product.filter(params.keys).order(:category_id).order(:name)
   end
 
   def create

@@ -24,13 +24,12 @@ class ProductListsController < ApplicationController
   end
 
   def update
-    puts "upadeaaaaaaaaaaaaaaaa"
     @product_list = ProductList.find(params[:id])
     if true
       @product_list.products.each do |product|
         name = product[0]
         foreign_name = product[1]
-        barcode = product[2]
+        barcode = product[2] || 1234567890123
         quantity_in_total = product[3] || 0
         quantity_per_box = product[4] || 0
         category_id = Category.find_by(name: product[5]).id || 1
