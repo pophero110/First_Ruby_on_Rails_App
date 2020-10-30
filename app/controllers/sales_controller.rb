@@ -40,7 +40,7 @@ class SalesController < ApplicationController
       redirect_to @sale
     else
       flash[:alert] = "Something went wrong"
-      redirect_to
+      redirect_to sales_path
     end
   end
 

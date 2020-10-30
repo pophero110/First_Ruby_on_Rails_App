@@ -3,8 +3,6 @@ class Product < ApplicationRecord
   validates :expiration_date, presence: true
   validates :quantity_of_box, presence: true
   validates :quantity_per_box, presence: true
-  validates_uniqueness_of :name
-  validates_uniqueness_of :foreign_name
   validates_uniqueness_of :barcode
   validates :barcode, length: { minimum: 12, maximum: 13 }
   def self.filter(params)

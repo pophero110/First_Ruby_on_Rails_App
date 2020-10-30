@@ -77,6 +77,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <% if logged_in? %>
              <%= link_to "Create new product", new_product_path, class: "dropdown-item" %>
+             <%= link_to "Upload product list", new_product_list_path, class: "dropdown-item" %>
               <% end %>
              
        
