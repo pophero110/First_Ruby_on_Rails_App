@@ -28,23 +28,18 @@
       <th scope="col">Name</th>
       <th scope="col">Foreign Name</th>
         <th scope="col">Barcode</th>
-        <th scope="col">Category</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Quantity_per_box</th>
-
-
+        <th scope="col">Category</th>
     </tr>
   </thead>
   <tbody>
-  <% @product_list.products.each do |product| %>
+  <% @product_list.products.drop(1).each do |product| %>
     <tr>
-      <td><%= product[0] %></td>
-      <td><%= product[1] %></td>
       <td><%= product[2] %></td>
-      <td><%= product[5] %></td>
       <td><%= product[3] %></td>
+      <td><%= product[0] %></td>
       <td><%= product[4] %></td>
- 
+      <td><%= product[7] %></td>
     </tr>
     <% end %>
   </tbody>

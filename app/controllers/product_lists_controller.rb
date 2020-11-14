@@ -1,5 +1,8 @@
+require "csv"
+
 class ProductListsController < ApplicationController
   def index
+    @product_lists = ProductList.all
   end
 
   def new
@@ -25,19 +28,26 @@ class ProductListsController < ApplicationController
 
   def update
     @product_list = ProductList.find(params[:id])
+    @errors = []
     if true
-      @product_list.products.each do |product|
-        name = product[0]
-        foreign_name = product[1]
-        barcode = product[2] || 1234567890123
-        quantity_in_total = product[3] || 0
-        quantity_per_box = product[4] || 0
-        category_id = Category.find_by(name: product[5]).id || 1
+      @product_list.products.drop(1).each do |product|
+        name = product[2]
+        foreign_name = product[3]
+        barcode = product[0] || 1234567890123
+        quantity_in_total = product[4] || 0
+        category_id = Category.find_or_create_by(name: product[7])
+        p "category id:" + category_id.id.to_s
+        newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total)
 
-        newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id, quantity_in_total: quantity_in_total, quantity_per_box: quantity_per_box, quantity_of_box: 0)
-        newProduct.save
+        if newProduct.save
+          p "product is created successfully"
+        else
+          newProduct.update(category_id: 0)
+          p "something went wrong: " + newProduct.errors.full_messages.to_s
+        end
       end
-      flash[:notice] = "Data confirmed. Products had been uploaded"
+      flash[:notice] = @errors
+
       redirect_to products_path
     else
       flash[:alert] = "Something went wrong"
