@@ -26,5 +26,5 @@ Things you may want to cover:
 
 
 Types of barcode
-* ENA(item)
+* EAN(item)
 * Interleaved 2 of 5(box)
