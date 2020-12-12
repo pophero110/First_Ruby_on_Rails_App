@@ -102,6 +102,45 @@
               <%= link_to "View sales", sales_path, class: "dropdown-item" %>
             
           </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Shipments
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% if logged_in? %>
+              <%= link_to "New shipment", new_shipment_path, class: "dropdown-item" %>
+              <% end %>
+              <%= link_to "View shipments", shipments_path, class: "dropdown-item" %>
+            
+          </li>
+
+              <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Vendors
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% if logged_in? %>
+              <%= link_to "New vendor", new_vendor_path, class: "dropdown-item" %>
+              <% end %>
+              <%= link_to "View vendors", vendors_path, class: "dropdown-item" %>
+            
+          </li>
            <% if logged_in? %>
            <li class="nav-item">
             <li class="nav-item dropdown">

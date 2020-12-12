@@ -1,0 +1,28 @@
+<h1 class="mt-4 text-center">New shipment</h1>
+<%= form_with(url: "/shipments/new", method: "get") do |form| %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= form.collection_select(:category_id, Category.all, :id, :name,
+                             { prompt: "Make your selections from the list below (can be empty)" }, { size: 5, class: "custom-select shadow rounded" }) %>
+                             <%= form.submit("Search") %>  
+<% end %>
+
+<%= form_with(url: shipments_path, method: "Post") do |form| %>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Foreign Name</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @products.each do |product| %>
+    <tr>
+      <th scope="row"><%= product.name %></th>
+      <th scope="row"><%= product.foreign_name %></th>
+      <th scope="row"><%= product.quantity_in_total %></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -10,10 +10,12 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(product_params.except("quantity_per_box", "quantity_of_box"))
+    if !@product.quantity_in_total
+      @product.quantity_in_total = product_params[:quantity_per_box].to_i * product_params[:quantity_of_box].to_i
+    end
+
     if @product.save
-      @product.quantity_in_total = @product.quantity_of_box * @product.quantity_per_box
-      @product.save
       flash[:notice] = "product was created successfully."
       redirect_to @product
     else
@@ -29,6 +31,7 @@ class ProductsController < ApplicationController
       end
     else
       @product = Product.find(params[:id])
+      @productHistory = @product.product_histories.order(created_at: :desc)
     end
   end
 
@@ -38,8 +41,13 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    @product.quantity_in_total = @product.quantity_of_box * @product.quantity_per_box
-    if @product.update(product_params)
+    oldQuantity = @product.quantity_in_total
+    if @product.update(product_params.except("quantity_per_box", "quantity_of_box"))
+      if oldQuantity != @product.quantity_in_total
+        changedQuantity = @product.quantity_in_total - oldQuantity
+        @productHistory = ProductHistory.new(change_in_quantity: changedQuantity, product: @product)
+        @productHistory.save
+      end
       flash[:notice] = "product was updated successfully"
       redirect_to @product
     else
@@ -49,13 +57,18 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
-    @product.destroy
-    redirect_to @product
+    if @product.destroy
+      flash[:notice] = @product.name.to_s + "was deleted successfully"
+      redirect_to products_path
+    else
+      flash[:alert] = "Something went wrong"
+      redirect_to(:back)
+    end
   end
 
   private
 
   def product_params
-    params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :quantity_of_box, :quantity_per_box, :category_id)
+    params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :category_id, :quantity_in_total, :quantity_per_box, :quantity_of_box)
   end
 end

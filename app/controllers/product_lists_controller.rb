@@ -30,13 +30,13 @@ class ProductListsController < ApplicationController
     @product_list = ProductList.find(params[:id])
     @errors = []
     if true
-      @product_list.products.drop(1).each do |product|
-        name = product[2]
-        foreign_name = product[3]
-        barcode = product[0] || 1234567890123
-        quantity_in_total = product[4] || 0
-        category_id = Category.find_or_create_by(name: product[7])
-        p "category id:" + category_id.id.to_s
+      @product_list.products.each do |product|
+        name = product[0]
+        foreign_name = product[1]
+        barcode = nil
+        quantity_in_total = nil
+        category_id = Category.find_or_create_by(name: product[2])
+
         newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total)
 
         if newProduct.save
@@ -70,5 +70,10 @@ class ProductListsController < ApplicationController
 
   def product_list_params
     params.require(:product_list).permit(:data)
+  end
+
+  def cvsFormator(format)
+    if format.to_s == "backend"
+    end
   end
 end

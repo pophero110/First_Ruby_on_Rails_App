@@ -1,0 +1,26 @@
+
+
+<h1 class="text-center mt-4">Vendors</h1>
+
+
+<div class="container">
+<div class="row">
+<% @vendors.each do |vendor| %>
+<div class="col-3 mt-1">
+<div class="card text-center shadow mb-5 bg-white rounded">
+  <div class="card-body">
+    <h5 class="card-title"><%= link_to vendor.name, vendor_path(vendor), class: "text-success" %></h5>
+    <% # <p class="card-text"><%= pluralize(vendors.products.count, "product") %>
+  </div>
+  <div class="card-footer text-muted">
+    <small class="d-block">Created at <%= vendor.created_at.strftime("%m/%d/%Y") %></small>
+  </div>
+</div>
+</div>
+
+   <% end %>
+</div>
+</div>
+
+
+

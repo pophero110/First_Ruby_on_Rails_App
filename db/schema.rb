@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_31_041554) do
+ActiveRecord::Schema.define(version: 2020_11_21_053509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(version: 2020_10_31_041554) do
     t.boolean "is_confirm"
   end
 
+  create_table "product_vendors", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "vendor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "foreign_name"
@@ -64,8 +71,6 @@ ActiveRecord::Schema.define(version: 2020_10_31_041554) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "barcode"
     t.datetime "expiration_date"
-    t.integer "quantity_of_box"
-    t.integer "quantity_per_box"
     t.integer "quantity_in_total"
     t.integer "category_id"
   end
@@ -76,6 +81,13 @@ ActiveRecord::Schema.define(version: 2020_10_31_041554) do
     t.boolean "is_confirm"
   end
 
+  create_table "shipments", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "products", default: [], array: true
+    t.boolean "is_received"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -83,6 +95,16 @@ ActiveRecord::Schema.define(version: 2020_10_31_041554) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.boolean "admin", default: false
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "email"
+    t.string "contact_number"
+    t.text "address"
+    t.string "language_preference"
   end
 
 end
