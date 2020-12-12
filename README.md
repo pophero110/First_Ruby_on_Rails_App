@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+
+Types of barcode
+* ENA(item)
+* Interleaved 2 of 5(box)
