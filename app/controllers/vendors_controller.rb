@@ -1,4 +1,6 @@
 class VendorsController < ApplicationController
+  before_action :set_vendor, only: [:show, :edit, :udpate, :destroy]
+
   def index
     @vendors = Vendor.all.order(name: :desc)
   end
@@ -19,10 +21,13 @@ class VendorsController < ApplicationController
   end
 
   def show
-    @vendor = Vendor.find(params[:id])
   end
 
   private
+
+  def set_vendor
+    @vendor = Vendor.find(params[:id])
+  end
 
   def vendor_params
     params.require(:vendor).permit(:name, :email, :contact_number, :address, :language_preference)

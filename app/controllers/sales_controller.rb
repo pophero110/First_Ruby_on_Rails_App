@@ -1,6 +1,11 @@
 require "csv"
 
 class SalesController < ApplicationController
+  before_action :set_sale, only: [:update, :show, :destroy]
+
+  @@addSale = "addSale"
+  @@deleteSale = "deleteSale"
+
   def index
     @sales = Sale.all.order(:date)
   end
@@ -10,10 +15,9 @@ class SalesController < ApplicationController
   end
 
   def create
-    #Parse csv file to array
-    parsed = CSV.parse(sales_params[:data].read).drop(1)
-    date = sales_params[:date]
-    @sale = Sale.new(date: date, data: parsed)
+    saleData = parseCSVFileToArray(sales_params[:data])
+    saleDate = sales_params[:date]
+    @sale = Sale.new(date: saleDate, data: saleData)
     if @sale.save
       flash[:notice] = "Sale data was uploaded successfully"
       redirect_to @sale
@@ -23,19 +27,11 @@ class SalesController < ApplicationController
   end
 
   def show
-    @sale = Sale.find(params[:id])
   end
 
   def update
-    @sale = Sale.find(params[:id])
     if @sale.update(is_confirm: true)
-      #update product quantity based on sale data
-      @sale.data.each do |product|
-        finded = Product.find_by(name: product[2])
-        if finded
-          finded.update(quantity_in_total: finded.quantity_in_total - product[4].to_i)
-        end
-      end
+      updateProductsQuantity(@sale, @@addSale)
       flash[:notice] = "Data confirmed. Quantity had been updated"
       redirect_to @sale
     else
@@ -45,14 +41,8 @@ class SalesController < ApplicationController
   end
 
   def destroy
-    @sale = Sale.find(params[:id])
     if @sale.destroy
-      @sale.data.each do |product|
-        finded = Product.find_by(name: product[2])
-        if finded
-          finded.update(quantity_in_total: finded.quantity_in_total + product[4].to_i)
-        end
-      end
+      updateProductsQuantity(@sale, @@deleteSale)
     else
       flash[:alert] = "Soemthing went wrong"
       redirect_to(:back)
@@ -62,7 +52,34 @@ class SalesController < ApplicationController
 
   private
 
+  def set_sale
+    @sale = Sale.find(params[:id])
+  end
+
   def sales_params
     params.require(:sale).permit(:date, :data)
+  end
+
+  def parseCSVFileToArray(csv)
+    CSV.parse(csv.read).drop(1)
+  end
+
+  def updateProductsQuantity(sale, type)
+    if type == @@addSale
+      sale.data.each do |product|
+        findedProduct = Product.find_by(name: product[2])
+        if findedProduct
+          findedProduct.update(quantity_in_total: finded.quantity_in_total - product[4].to_i)
+        end
+      end
+    elsif type == @@deleteSale
+      sale.data.each do |product|
+        finded = Product.find_by(name: product[2])
+        if finded
+          finded.update(quantity_in_total: finded.quantity_in_total + product[4].to_i)
+        end
+      end
+    else
+    end
   end
 end

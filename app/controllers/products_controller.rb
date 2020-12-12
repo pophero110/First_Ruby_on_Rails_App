@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :require_user, except: [:index, :show]
+  before_action :set_product, only: [:update, :edit, :destroy]
 
   def new
     @product = Product.new
@@ -36,11 +37,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     oldQuantity = @product.quantity_in_total
     if @product.update(product_params.except("quantity_per_box", "quantity_of_box"))
       if oldQuantity != @product.quantity_in_total
@@ -56,7 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     if @product.destroy
       flash[:notice] = @product.name.to_s + "was deleted successfully"
       redirect_to products_path
@@ -67,6 +65,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :category_id, :quantity_in_total, :quantity_per_box, :quantity_of_box)
