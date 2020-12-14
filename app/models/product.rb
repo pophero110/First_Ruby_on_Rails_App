@@ -11,7 +11,7 @@ class Product < ApplicationRecord
       products = Category.find_by(name: "Frozen").products
       return products
     else
-      puts "aall"
+      puts "all"
       products = Product.all
       return products
     end
