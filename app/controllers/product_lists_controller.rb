@@ -58,14 +58,13 @@ class ProductListsController < ApplicationController
   def createProducts(productList)
     errors = []
     productList.products.each do |product|
-      instance_id = nil
       name = product[0]
       foreign_name = product[1]
       barcode = nil
       category_id = Category.find_or_create_by(name: product[2])
       quantity_in_total = nil
 
-      newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total.to_i, instance_id: instance_id)
+      newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total.to_i)
 
       if newProduct.save
         p "product is created successfully"
