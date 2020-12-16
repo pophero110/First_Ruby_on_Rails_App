@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
   end
 
   def create
-    byebug
     @product = Product.new(product_params.except("quantity_per_box", "quantity_of_box"))
     if !@product.quantity_in_total
       @product.quantity_in_total = product_params[:quantity_per_box].to_i * product_params[:quantity_of_box].to_i
