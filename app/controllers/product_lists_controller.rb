@@ -26,7 +26,8 @@ class ProductListsController < ApplicationController
   end
 
   def update
-    createProducts(@product_list)
+    @productList = ProductList.find(params[:id])
+    createProducts(@productList)
     redirect_to product_lists_path
   end
 
@@ -43,7 +44,7 @@ class ProductListsController < ApplicationController
   private
 
   def set_productList
-    @product_list = ProductList.find(params[:id])
+    @productList = ProductList.find(params[:id])
   end
 
   def product_list_params
@@ -57,13 +58,14 @@ class ProductListsController < ApplicationController
   def createProducts(productList)
     errors = []
     productList.products.each do |product|
+      instance_id = nil
       name = product[0]
       foreign_name = product[1]
       barcode = nil
-      quantity_in_total = nil
       category_id = Category.find_or_create_by(name: product[2])
+      quantity_in_total = nil
 
-      newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total)
+      newProduct = Product.new(name: name, foreign_name: foreign_name, expiration_date: Time.new(2000, 1, 1), barcode: barcode.to_s, category_id: category_id.id, quantity_in_total: quantity_in_total.to_i, instance_id: instance_id)
 
       if newProduct.save
         p "product is created successfully"

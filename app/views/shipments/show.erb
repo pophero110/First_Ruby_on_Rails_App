@@ -2,14 +2,14 @@
 <div class="pl-5 pr-5">
 <div class="mt-4 mb-2 d-flex justify-content-between
  align-items-center">
-<h1>Date: <%= @shipment.created_at %></h1>
+<h1>Date: <%= @shipment.created_at.strftime("%m/%d/%Y") %></h1>
 <div class="d-flex ">
 <% if !@shipment.is_received %>
 <%= form_with(url: shipment_path(@shipment), method: "Patch") do %>
-<%= submit_tag("Confirm", class: "btn btn-warning mr-2", data: { confirm: "Are you sure?" }) %>
+<%= submit_tag("Receive", class: "btn btn-warning mr-2", data: { confirm: "Are you sure?" }) %>
   <% end %>
   <% else %>
-  <button class="btn btn-secondary mr-2" disabled>Confirmed</button>
+  <button class="btn btn-secondary mr-2" disabled>Received</button>
   <% end %>
  <%= form_with(url: shipment_path(@shipment), method: "Delete") do %>
 <%= submit_tag("Delete", class: "btn btn-danger mr-2", data: { confirm: "Are you sure?" }) %>

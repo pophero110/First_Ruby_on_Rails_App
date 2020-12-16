@@ -2,6 +2,7 @@ class ShipmentsController < ApplicationController
   before_action :set_shipment, only: [:update, :show, :destroy]
 
   def index
+    @shipments = Shipment.all.order(:created_at)
   end
 
   def new
@@ -42,6 +43,21 @@ class ShipmentsController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
+    if @shipment.is_received
+      if @shipment.destroy
+        flash[:notice] = "Shipment was deleted successfully"
+        redirect_to shipments_path
+      end
+      # subtract quantity of products based on shipment.products
+    else
+      if @shipment.destroy
+        flash[:notice] = "Shipment was deleted successfully"
+        redirect_to shipments_path
+      end
+    end
   end
 
   private

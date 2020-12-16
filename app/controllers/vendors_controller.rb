@@ -21,6 +21,7 @@ class VendorsController < ApplicationController
   end
 
   def show
+    @products = @vendor.products
   end
 
   private

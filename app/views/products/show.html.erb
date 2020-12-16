@@ -12,6 +12,7 @@
  
       <th scope="col">Quantity</th>
       <th scope="col">Category</th>
+      <th scope="col">Vendors</th>
       <th scope="col">Expiration Date</th>
       <th scope="col">Created Date</th>
 
@@ -31,6 +32,12 @@
        <% else %>
         <td>None</td>
       <% end %></td>
+
+       <% if @product.vendors.any? %>
+              <td><%= render @product.vendors %></td> 
+               <% else %>
+               <td></td>
+            <% end %>
        <td><%= @product.expiration_date.strftime("%m/%d/%Y") %>
       <td><%= @product.created_at.strftime("%m/%d/%Y") %></td>
       <td>   <%= link_to "Edit", edit_product_path(@product), class: "btn btn-outline-info text-center " %>

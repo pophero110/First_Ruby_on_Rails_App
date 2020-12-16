@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_053509) do
+ActiveRecord::Schema.define(version: 2020_12_15_200409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_11_21_053509) do
     t.datetime "expiration_date"
     t.integer "quantity_in_total"
     t.integer "category_id"
+    t.integer "instance_id"
   end
 
   create_table "sales", force: :cascade do |t|

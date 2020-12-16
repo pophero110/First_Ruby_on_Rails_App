@@ -3,10 +3,12 @@ $(document).on("turbolinks:load", function () {
     ".select_shipment_template"
   );
 
-  selectShipmentTemplate.addEventListener("click", function (e) {
-    e.defaultPrevented;
-    let category_id = document.querySelector("#category_id").selectedOptions[0]
-      .value;
-    window.location.assign("/shipments/new" + "?category_id=" + category_id);
-  });
+  if (selectShipmentTemplate != null) {
+    selectShipmentTemplate.addEventListener("click", function (e) {
+      e.defaultPrevented;
+      let category_id = document.querySelector("#category_id")
+        .selectedOptions[0].value;
+      window.location.assign("/shipments/new" + "?category_id=" + category_id);
+    });
+  }
 });

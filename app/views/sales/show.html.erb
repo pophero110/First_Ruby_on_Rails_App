@@ -23,6 +23,7 @@
    <table class="table table-striped table-bordered table-light">
   <thead>
     <tr>
+      <th scope="col">Instance_Id</th>
       <th scope="col">Name</th>
       <th scope="col">Foreign Name</th>
         <th scope="col">Quantity Sold</th>
@@ -31,6 +32,7 @@
   <tbody>
   <% @sale.data.each do |product| %>
     <tr>
+      <td><%= product[0] %></td>
       <td><%= product[2] %></td>
       <td><%= product[3] %></td>
       <td><%= product[4] %></td>

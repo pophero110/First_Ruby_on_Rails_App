@@ -30,24 +30,36 @@ class SalesController < ApplicationController
   end
 
   def update
-    if @sale.update(is_confirm: true)
+    if !@sale.is_confirm
+      @sale.update(is_confirm: true)
       updateProductsQuantity(@sale, @@addSale)
       flash[:notice] = "Data confirmed. Quantity had been updated"
       redirect_to @sale
     else
-      flash[:alert] = "Something went wrong"
+      updateProductsQuantity(@sale, @@deleteSale)
       redirect_to sales_path
     end
   end
 
   def destroy
-    if @sale.destroy
-      updateProductsQuantity(@sale, @@deleteSale)
+    if @sale.is_confirm
+      if @sale.destroy
+        updateProductsQuantity(@sale, @@deleteSale)
+        flash[:notice] = "Sale was deleted successfully"
+        redirect_to sales_path
+      else
+        flash[:alert] = "Soemthing went wrong"
+        redirect_to(:back)
+      end
     else
-      flash[:alert] = "Soemthing went wrong"
-      redirect_to(:back)
+      if @sale.destroy
+        flash[:notice] = "Sale was deleted successfully"
+        redirect_to sales_path
+      else
+        flash[:alert] = "Soemthing went wrong"
+        redirect_to(:back)
+      end
     end
-    redirect_to sales_path
   end
 
   private
@@ -64,12 +76,19 @@ class SalesController < ApplicationController
     CSV.parse(csv.read).drop(1)
   end
 
+  def addInstanceId(product, instancd_id)
+    if product.instance_id.nil?
+      product.update(instance_id: instancd_id)
+    end
+  end
+
   def updateProductsQuantity(sale, type)
     if type == @@addSale
       sale.data.each do |product|
         findedProduct = Product.find_by(name: product[2])
+        addInstanceId(findedProduct, product[0])
         if findedProduct
-          findedProduct.update(quantity_in_total: finded.quantity_in_total - product[4].to_i)
+          findedProduct.update(quantity_in_total: findedProduct.quantity_in_total - product[4].to_i)
         end
       end
     elsif type == @@deleteSale

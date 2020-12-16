@@ -7,10 +7,11 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.filter(params.keys).order(:category_id).order(:name)
+    @products = Product.filter(params.keys).order(:updated_at).reverse_order
   end
 
   def create
+    byebug
     @product = Product.new(product_params.except("quantity_per_box", "quantity_of_box"))
     if !@product.quantity_in_total
       @product.quantity_in_total = product_params[:quantity_per_box].to_i * product_params[:quantity_of_box].to_i
@@ -71,6 +72,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :category_id, :quantity_in_total, :quantity_per_box, :quantity_of_box)
+    params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :category_id, :quantity_in_total, :quantity_per_box, :quantity_of_box, vendor_ids: [])
   end
 end

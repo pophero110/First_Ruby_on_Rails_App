@@ -1,1 +1,36 @@
-<h1>Shipment Listing</h1> 
+
+<div class="pl-5 pr-5">
+
+<div class="mt-4 d-flex justify-content-between align-items-center">
+<h1>Shipments</h1>
+<%= link_to "back to homepage", root_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="row">
+  <% @shipments.each do |shipment| %>
+    <div class="card text-center col-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= shipment.created_at.strftime("%m/%d/%Y") %></h5>
+     <p class="card-text"><%= link_to "[View data]", shipment_path(shipment) %></p>
+
+<div class="d-flex justify-content-center">
+<% if !shipment.is_received %>
+<%= form_with(url: shipment_path(shipment), method: "Patch") do %>
+<%= submit_tag("Receive", class: "btn btn-warning mr-2", data: { confirm: "Are you sure?" }) %>
+  <% end %>
+  <% else %>
+  <button class="btn btn-secondary mr-2" disabled>Received</button>
+  <% end %>
+
+<%= form_with(url: shipment_path(shipment), method: "Delete") do %>
+<%= submit_tag("Delete", class: "btn btn-danger mr-2", data: { confirm: "Are you sure?" }) %>
+<% end %>
+</div>
+
+  </div>
+  </div>
+<% end %>
+</div>
+
+</div>
+</div>

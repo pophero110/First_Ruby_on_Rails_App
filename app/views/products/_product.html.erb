@@ -9,6 +9,7 @@
 <table class="table table-striped table-bordered table-light">
   <thead>
     <tr>
+      <th scope="col">Instance_id</th>
       <th scope="col">Name</th>
       <th scope="col">Foreign Name</th>
       <th scope="col">Barcode</th>
@@ -23,6 +24,7 @@
   <tbody>
   <% @products.each do |product| %>
     <tr>
+    <td><%= product.instance_id %></td>
       <td class="text-capitalize"><%= link_to product.name, product_path(product) %></td>
       <td><%= product.foreign_name %></td>
       <td><%= product.barcode %></td>

@@ -1,10 +1,17 @@
-<h1 class="text-center mt-4">Categories</h1>
+<div class="pl-5 pr-5">
+
+<div class="mt-4 d-flex justify-content-between align-items-center">
+<h1>Categories</h1>
+<%= link_to "back to homepage", root_path, class: "btn btn-outline-secondary" %>
+</div>
+
+</div>
 
 
 <div class="container">
 <div class="row">
 <% @categories.each do |category| %>
-<div class="col-3 mt-1">
+<div class="col-3 mt-4">
 <div class="card text-center shadow mb-5 bg-white rounded">
   <div class="card-body">
     <h5 class="card-title"><%= link_to category.name, category_path(category), class: "text-success" %></h5>

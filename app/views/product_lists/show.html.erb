@@ -4,16 +4,16 @@
 <div class="pl-5 pr-5">
 <div class="mt-4 mb-2 d-flex justify-content-between
  align-items-center">
-<h1>Products: <%= @product_list.products.length %></h1>
+<h1>Products: <%= @productList.products.length %></h1>
 <div class="d-flex ">
-<% if !@product_list.is_confirm %>
-<%= form_with(url: product_list_path(@product_list), method: "Patch") do %>
+<% if !@productList.is_confirm %>
+<%= form_with(url: product_list_path(@productList), method: "Patch") do %>
 <%= submit_tag("Confirm", class: "btn btn-warning mr-2", data: { confirm: "Are you sure?" }) %>
   <% end %>
   <% else %>
   <button class="btn btn-secondary mr-2" disabled>Confirmed</button>
   <% end %>
- <%= form_with(url: product_list_path(@product_list), method: "Delete") do %>
+ <%= form_with(url: product_list_path(@productList), method: "Delete") do %>
 <%= submit_tag("Delete", class: "btn btn-danger mr-2", data: { confirm: "Are you sure?" }) %>
 <% end %>
 
@@ -25,21 +25,23 @@
    <table class="table table-striped table-bordered table-light">
   <thead>
     <tr>
+      <th scope="col">Id</th>
       <th scope="col">Name</th>
       <th scope="col">Foreign Name</th>
         <th scope="col">Barcode</th>
-        <th scope="col">Quantity</th>
         <th scope="col">Category</th>
+        <th scope="col">Quantity</th>
     </tr>
   </thead>
   <tbody>
-  <% @product_list.products.drop(1).each do |product| %>
+  <% @productList.products.drop(1).each do |product| %>
     <tr>
-      <td><%= product[2] %></td>
-      <td><%= product[3] %></td>
+      <td></td>
       <td><%= product[0] %></td>
-      <td><%= product[4] %></td>
-      <td><%= product[7] %></td>
+      <td><%= product[1] %></td>
+      <td></td>
+      <td><%= product[2] %></td>
+      <td></td>
     </tr>
     <% end %>
   </tbody>
