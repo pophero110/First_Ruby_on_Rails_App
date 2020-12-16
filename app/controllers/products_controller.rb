@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.filter(params.keys).order(:updated_at).reverse_order
+    @products = Product.all.includes(:category, :vendors).order(:updated_at).reverse_order
   end
 
   def create
