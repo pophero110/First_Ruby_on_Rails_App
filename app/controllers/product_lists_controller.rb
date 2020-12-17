@@ -36,7 +36,7 @@ class ProductListsController < ApplicationController
       flash[:notice] = "Successfully"
       redirect_to product_lists_path
     else
-      flash[:alert] = "Soemthing went wrong"
+      flash[:alert] = "Something went wrong"
       redirect_to(:back)
     end
   end

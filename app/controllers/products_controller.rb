@@ -37,6 +37,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    session[:return_to] = request.referer
   end
 
   def update
@@ -47,8 +48,9 @@ class ProductsController < ApplicationController
         @productHistory = ProductHistory.new(change_in_quantity: changedQuantity, product: @product)
         @productHistory.save
       end
+
       flash[:notice] = "product was updated successfully"
-      redirect_to @product
+      redirect_to session.delete(:return_to)
     else
       render "edit"
     end
@@ -72,5 +74,13 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :foreign_name, :barcode, :expiration_date, :category_id, :quantity_in_total, :quantity_per_box, :quantity_of_box, vendor_ids: [])
+  end
+
+  def store_location
+    session[:return_to] = request.fullpath if request.get? and controller_name != "user_sessions" and controller_name != "sessions"
+  end
+
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
   end
 end

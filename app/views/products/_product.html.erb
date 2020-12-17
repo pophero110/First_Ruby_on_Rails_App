@@ -16,7 +16,7 @@
       <th scope="col">Quantity</th>
       <th scope="col">Category</th>
       <th scope="col">Expiration Date</th>
-      <th scope="col">Created Date</th>
+      <th scope="col">Updated Date</th>
 
       <th scope="col">Action</th>
     </tr>
@@ -29,14 +29,10 @@
       <td><%= product.foreign_name %></td>
       <td><%= product.barcode %></td>
       <td><%= product.quantity_in_total %></td>
-      <% if product.category %>
        <td>  <%= product.category.name %></td>
-       <% else %>
-        <td>no</td>
-      <% end %></td>
 
        <td><%= product.expiration_date.in_time_zone("America/Chicago").strftime("%m/%d/%Y") %>
-      <td><%= product.created_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y") %></td>
+      <td><%= product.updated_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y - %H:%M:%S") %></td>
 <td>
 <%= link_to "Edit", edit_product_path(product), class: "btn btn-outline-info text-center " %>
     <%= link_to "Delete", product_path(product), class: "btn btn-outline-danger text-center ", method: :delete, data: { confirm: "Are you sure?" } %></td></td>
