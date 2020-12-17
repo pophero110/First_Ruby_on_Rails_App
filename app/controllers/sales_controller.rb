@@ -48,7 +48,7 @@ class SalesController < ApplicationController
         flash[:notice] = "Sale was deleted successfully"
         redirect_to sales_path
       else
-        flash[:alert] = "Soemthing went wrong"
+        flash[:alert] = "Something went wrong"
         redirect_to(:back)
       end
     else
@@ -56,7 +56,7 @@ class SalesController < ApplicationController
         flash[:notice] = "Sale was deleted successfully"
         redirect_to sales_path
       else
-        flash[:alert] = "Soemthing went wrong"
+        flash[:alert] = "Something went wrong"
         redirect_to(:back)
       end
     end
@@ -86,8 +86,8 @@ class SalesController < ApplicationController
     if type == @@addSale
       sale.data.each do |product|
         findedProduct = Product.find_by(name: product[2])
-        addInstanceId(findedProduct, product[0])
         if findedProduct
+          addInstanceId(findedProduct, product[0])
           findedProduct.update(quantity_in_total: findedProduct.quantity_in_total - product[4].to_i)
         end
       end
