@@ -1,7 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-      <% # <a class="navbar-brand" id="logo" href="#">Navbar</a> %>
-      <%= link_to "Homepage", root_path, class: "navbar-brand", id: "logo" %>
-      <button
+<nav class="navbar bg-dark fixed-top navbar-dark flex-md-nowrap p-0 shadow">
+      <%= link_to "Inventory System Demo", root_path, class: "navbar-brand col-sm-3 col-md-2 mr-0", id: "logo" %>
+      <%# <button
         class="navbar-toggler bg-secondary"
         type="button"
         data-toggle="collapse"
@@ -11,137 +10,13 @@
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> %>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-       
-  <% if false %>
-   <li class="nav-item active">
-            <%= link_to "Users", users_path, class: "nav-link" %>
-          </li>
-  <% end %>
-
-          <% if false %>
- 
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Articles
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% if logged_in? %>
-              <%= link_to "Create new articles", new_article_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to "View articles", articles_path, class: "dropdown-item" %>
-            
-          </li>
-<% end %> 
-  <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Categories
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% if logged_in? && current_user.admin? %>
-              <%= link_to "Create new category", new_category_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to "View categories", categories_path, class: "dropdown-item" %>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Products
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <% if logged_in? %>
-             <%= link_to "Create new product", new_product_path, class: "dropdown-item" %>
-             <%= link_to "Upload product list", new_product_list_path, class: "dropdown-item" %>
-              <% end %>
-             
-       
-              <%= link_to "View products", products_path, class: "dropdown-item" %>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Sales
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% if logged_in? %>
-              <%= link_to "Upload file", new_sale_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to "View sales", sales_path, class: "dropdown-item" %>
-            
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Shipments
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% if logged_in? %>
-              <%= link_to "New shipment", new_shipment_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to "View shipments", shipments_path, class: "dropdown-item" %>
-            
-          </li>
-
-              <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Vendors
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% if logged_in? %>
-              <%= link_to "New vendor", new_vendor_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to "View vendors", vendors_path, class: "dropdown-item" %>
-            
-          </li>
-           <% if logged_in? %>
+      <input type="text" class="form-control form-control-dark w-100" placeholder="Search" aria-label="Search">
+      <ul class="class navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+      <%# <a href="" class="nav-link">Sign out</a> %>
+     <% if logged_in? %>
            <li class="nav-item">
             <li class="nav-item dropdown">
             <a
@@ -160,14 +35,11 @@
               <%= link_to "View your profile", user_path(current_user), class: "dropdown-item" %>
             
               <%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Delete profile", user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item text-danger" %>
+               <%= link_to "Log out", logout_path, method: :delete, class: "dropdown-item text-danger" %>
+  
           
           </li>
          
-          </li>
-          <li class="nav-item">
-          <%= link_to "Log out", logout_path, method: :delete, class: "nav-link text-danger font-weight-bold" %>
-            
           </li>
           <% else %>
         
@@ -175,23 +47,14 @@
            
         
           </li>
-            <li class="nav-item">
-          <%= link_to "Sign up", signup_path, class: "nav-link text-success font-weight-bold" %>
-          </li>
+         
           <% end %>
-        </ul>
-        <% if false %>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-        <% end %>
-      </div>
+
+
+      </li>
+      </ul>
     </nav>
+
+
+
+    

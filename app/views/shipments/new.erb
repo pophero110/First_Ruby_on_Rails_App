@@ -1,4 +1,4 @@
-<h1 class="mt-4 text-center">New shipment</h1>
+<h1 class="text-center">New order</h1>
 <%= form_with(url: "/shipments/new", method: "get") do |form| %>
   <%= label_tag(:q, "Search for:") %>
   <%= form.collection_select(:category_id, Category.all, :id, :name,
