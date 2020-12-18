@@ -24,6 +24,9 @@ class VendorsController < ApplicationController
     @products = @vendor.products
   end
 
+  def edit
+  end
+
   private
 
   def set_vendor

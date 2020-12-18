@@ -2,30 +2,40 @@
 
 <div class="mt-4 d-flex justify-content-between align-items-center">
 <h1>Categories</h1>
-<%= link_to "back to homepage", root_path, class: "btn btn-outline-secondary" %>
-</div>
-
-</div>
-
-
-<div class="container">
-<div class="row">
-<% @categories.each do |category| %>
-<div class="col-3 mt-4">
-<div class="card text-center shadow mb-5 bg-white rounded">
-  <div class="card-body">
-    <h5 class="card-title"><%= link_to category.name, category_path(category), class: "text-success" %></h5>
-    <p class="card-text"><%= pluralize(category.products.count, "product") %></p>
-  </div>
-  <div class="card-footer text-muted">
-    <small class="d-block">Created at <%= category.created_at.strftime("%m/%d/%Y") %></small>
-  </div>
+<div class="d-flex ">
+<%= link_to "New category", new_category_path, class: "btn btn-outline-info mr-2" %>
+<%= link_to "Back to homepage", root_path, class: "btn btn-outline-secondary" %>
 </div>
 </div>
 
-   <% end %>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Product Count</th>
+      <th scope="col">Updated Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @categories.each do |category| %>
+    <tr>
+      <th scope="row"><%= link_to category.name, category_path(category), class: "text-success" %></th>
+      <td><%= pluralize(category.products.count, "product") %></td>
+      <td><%= category.updated_at.strftime("%m/%d/%Y") %></td>
+      <td><%= link_to "Edit", edit_category_path(category), class: "btn btn-outline-info text-center btn-sm " %>
+    <%= link_to "Delete", category_path(category), class: "btn btn-outline-danger text-center btn-sm ", method: :delete, data: { confirm: "Are you sure?" } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
-</div>
+
+
+
 
 
 

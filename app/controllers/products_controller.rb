@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
 
   def destroy
     if @product.destroy
-      flash[:notice] = @product.name.to_s + "was deleted successfully"
+      flash[:notice] = @product.name.to_s + " was deleted successfully"
       redirect_to products_path
     else
       flash[:alert] = "Something went wrong"
