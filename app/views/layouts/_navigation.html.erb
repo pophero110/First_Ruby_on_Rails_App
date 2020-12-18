@@ -1,21 +1,11 @@
 <nav class="navbar bg-dark fixed-top navbar-dark flex-md-nowrap p-0 shadow">
-      <%= link_to "Inventory System Demo", root_path, class: "navbar-brand col-sm-3 col-md-2 mr-0", id: "logo" %>
-      <%# <button
-        class="navbar-toggler bg-secondary"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button> %>
+      <%= link_to "Inventory System", root_path, class: "navbar-brand col-sm-3 col-md-2 mr-0", id: "logo" %>
+   
 
       <input type="text" class="form-control form-control-dark w-100" placeholder="Search" aria-label="Search">
       <ul class="class navbar-nav px-3">
       <li class="nav-item text-nowrap">
-      <%# <a href="" class="nav-link">Sign out</a> %>
+      <% # <a href="" class="nav-link">Sign out</a> %>
      <% if logged_in? %>
            <li class="nav-item">
             <li class="nav-item dropdown">
